@@ -21,6 +21,7 @@ export default async function handler(req, res) {
       res.setHeader('WWW-Authenticate', 'Basic realm="Admin API"')
       return res.status(401).end('Access denied')
     }
+
     let body = ''
     for await (const chunk of req) body += chunk
     try {
