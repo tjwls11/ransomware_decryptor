@@ -1,20 +1,23 @@
 import fs from 'fs'
 import path from 'path'
 
-export default async function handler(req, res) {
-  const filePath = path.join(process.cwd(), 'payment_status.json')
+let isPaid = false
 
+export default async function handler(req, res) {
+  const auth = req.headers.authorization || ''
+
+  // GET: 상태 조회
   if (req.method === 'GET') {
-    const data = fs.readFileSync(filePath, 'utf-8')
-    return res.status(200).json(JSON.parse(data))
+    return res.status(200).json({ isPaid })
   }
 
+  // PUT: JSON body 파싱 및 isPaid 업데이트
   if (req.method === 'PUT') {
-    const auth = req.headers.authorization || ''
+    // Basic Auth 확인
     const [scheme, creds] = auth.split(' ')
     if (scheme !== 'Basic') {
       res.setHeader('WWW-Authenticate', 'Basic realm="Admin API"')
-      return res.status(401).end('Auth required')
+      return res.status(401).end('Authentication required')
     }
     const [user, pass] = Buffer.from(creds, 'base64').toString().split(':')
     if (user !== process.env.ADMIN_USER || pass !== process.env.ADMIN_PASS) {
@@ -22,12 +25,20 @@ export default async function handler(req, res) {
       return res.status(401).end('Access denied')
     }
 
+    // 본문 데이터 수신
     let body = ''
-    for await (const chunk of req) body += chunk
+    req.on('data', (chunk) => {
+      body += chunk.toString()
+    })
+    await new Promise((resolve) => req.on('end', resolve))
+
     try {
-      const { isPaid } = JSON.parse(body)
-      fs.writeFileSync(filePath, JSON.stringify({ isPaid }, null, 2))
-      return res.status(200).json({ message: 'Payment status updated' })
+      const data = JSON.parse(body)
+      if (typeof data.isPaid === 'boolean') {
+        isPaid = data.isPaid
+        return res.status(200).json({ message: 'Payment status updated' })
+      }
+      throw new Error('Invalid type')
     } catch {
       return res.status(400).json({ error: 'Invalid JSON' })
     }
