@@ -19,12 +19,14 @@
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const dl = document.getElementById('downloadSection')
-        setInterval(() => {
+        const intervalId = setInterval(() => {
           fetch('/payment_status.json')
             .then((res) => res.json())
-            .then((j) => {
-              if (j.isPaid) dl.style.display = 'block'
-              else dl.style.display = 'none'
+            .then((data) => {
+              if (data.isPaid) {
+                dl.style.display = 'block'
+                clearInterval(intervalId)
+              }
             })
             .catch(console.error)
         }, 3000)

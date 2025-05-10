@@ -24,7 +24,6 @@ html {
 
 .glitch {
   font-size: 36px;
-  color: #39ff14;
   position: relative;
   animation: glitch 1s infinite;
 }
