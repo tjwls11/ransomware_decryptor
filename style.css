@@ -17,6 +17,11 @@ html {
 
 .terminal {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   width: 80%;
   max-width: 800px;
   padding: 20px;
