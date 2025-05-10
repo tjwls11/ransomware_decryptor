@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/payment_status.json",
-      "destination": "/api/payment_status.js"
-    }
-  ]
-}
