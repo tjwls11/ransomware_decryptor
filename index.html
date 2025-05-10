@@ -9,6 +9,7 @@
   </head>
   <body>
     <div class="container">
+      <div class="url-display">https://onion-decryptor.vercel.app</div>
       <h1 class="glitch">Decryptor Download</h1>
       <p>송금을 완료해야 복호화 프로그램을 다운로드할 수 있습니다.</p>
       <div id="downloadSection" style="display: none">
@@ -24,6 +25,7 @@
             .then((res) => res.json())
             .then((j) => {
               if (j.isPaid) dl.style.display = 'block'
+              else dl.style.display = 'none'
             })
             .catch(console.error)
         }, 3000)
