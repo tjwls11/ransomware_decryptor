@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,12 +13,26 @@
       <p>송금을 완료해야 복호화 프로그램을 다운로드할 수 있습니다.</p>
 
       <div id="downloadSection" style="display: none">
-        <p id="passwordText">암호: 0000</p>
+        <p id="passwordText"></p>
         <a href="welldone.rar" download>Download Welldone</a>
       </div>
     </div>
 
     <script>
+      function typeWriter(text, elementId, delay = 100) {
+        const el = document.getElementById(elementId)
+        el.textContent = ''
+        let i = 0
+        function typing() {
+          if (i < text.length) {
+            el.textContent += text.charAt(i)
+            i++
+            setTimeout(typing, delay)
+          }
+        }
+        typing()
+      }
+
       document.addEventListener('DOMContentLoaded', () => {
         const dl = document.getElementById('downloadSection')
 
@@ -27,6 +41,7 @@
           .then((data) => {
             if (data.isPaid) {
               dl.style.display = 'block'
+              typeWriter('암호: 0000', 'passwordText', 100)
             }
           })
           .catch(console.error)

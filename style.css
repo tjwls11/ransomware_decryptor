@@ -160,3 +160,12 @@ a {
 a:hover {
   background: #afa;
 }
+
+#passwordText {
+  margin-top: 15px;
+  min-height: 1em;
+  white-space: pre;
+  font-size: 18px;
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0;
+}
