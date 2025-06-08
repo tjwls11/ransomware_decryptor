@@ -168,4 +168,21 @@ a:hover {
   font-size: 18px;
   color: #0f0;
   text-shadow: 0 0 5px #0f0;
+  display: inline-block;
+}
+
+.cursor::after {
+  content: '█';
+  animation: blink 1s step-start infinite;
+  margin-left: 5px;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
