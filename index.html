@@ -14,12 +14,13 @@
 
       <div id="downloadSection" style="display: none">
         <p id="passwordText" class="cursor"></p>
+
         <a href="welldone.rar" download>Download Welldone</a>
       </div>
     </div>
 
     <script>
-      function typeWriter(text, elementId, delay = 100) {
+      function typeWriter(text, elementId, delay = 150) {
         const el = document.getElementById(elementId)
         el.textContent = ''
         let i = 0
@@ -35,13 +36,17 @@
 
       document.addEventListener('DOMContentLoaded', () => {
         const dl = document.getElementById('downloadSection')
+        const pw = document.getElementById('passwordText')
 
         fetch('/api/payment_status')
           .then((res) => res.json())
           .then((data) => {
             if (data.isPaid) {
-              dl.style.display = 'block'
-              typeWriter('암호: 0000', 'passwordText', 100)
+              dl.style.display = 'flex'
+              dl.style.flexDirection = 'column'
+              dl.style.alignItems = 'center'
+              pw.classList.add('cursor')
+              typeWriter('암호: 0000', 'passwordText', 300)
             }
           })
           .catch(console.error)
