@@ -24,6 +24,7 @@ html {
   text-align: center;
   width: 80%;
   max-width: 800px;
+  height: 400px;
   padding: 20px;
   background: rgba(0, 0, 0, 0.85);
   border: 1px solid #0f0;
@@ -159,34 +160,4 @@ a {
 
 a:hover {
   background: #afa;
-}
-
-#typewriterText {
-  min-height: 1em;
-  white-space: pre;
-  font-size: 18px;
-  color: #0f0;
-  text-shadow: 0 0 5px #0f0;
-  display: inline-block;
-}
-
-.cursor::after {
-  content: '█';
-  animation: blink 1s step-start infinite;
-  margin-left: 5px;
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
-.terminal {
-  height: 400px; /* 고정 */
-  overflow: hidden;
 }
