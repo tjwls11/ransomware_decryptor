@@ -161,14 +161,13 @@ a:hover {
   background: #afa;
 }
 
-#passwordText {
+#typewriterText {
   min-height: 1em;
   white-space: pre;
   font-size: 18px;
   color: #0f0;
   text-shadow: 0 0 5px #0f0;
   display: inline-block;
-  margin-bottom: 20px;
 }
 
 .cursor::after {
@@ -187,8 +186,7 @@ a:hover {
   }
 }
 
-/* 박스 높이 고정 */
 .terminal {
-  height: 400px; /* ✅ 고정 높이 지정 */
+  height: 400px; /* 고정 */
   overflow: hidden;
 }

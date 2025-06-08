@@ -7,49 +7,48 @@
     <link rel="stylesheet" href="style.css" />
     <title>Welldone Download</title>
   </head>
+
   <body>
     <div class="terminal">
       <h1 class="glitch" data-text="Welldone Download">Welldone Download</h1>
-      <p>송금을 완료해야 복호화 프로그램을 다운로드할 수 있습니다.</p>
 
-      <div id="downloadSection" style="display: none">
-        <p id="passwordText" class="cursor"></p>
+      <p id="typewriterText" class="cursor"></p>
+
+      <div id="downloadSection" style="display: none; margin-top: 20px">
+        <p>암호: 0000</p>
 
         <a href="welldone.rar" download>Download Welldone</a>
       </div>
     </div>
 
     <script>
-      function typeWriter(text, elementId, delay = 150) {
+      function typeWriter(text, elementId, delay = 80, callback) {
         const el = document.getElementById(elementId)
         el.textContent = ''
         let i = 0
+
         function typing() {
           if (i < text.length) {
             el.textContent += text.charAt(i)
             i++
             setTimeout(typing, delay)
+          } else if (callback) {
+            callback()
           }
         }
+
         typing()
       }
 
       document.addEventListener('DOMContentLoaded', () => {
         const dl = document.getElementById('downloadSection')
-        const pw = document.getElementById('passwordText')
+        const msg = '송금을 완료해야 복호화 프로그램을 다운로드할 수 있습니다.'
 
-        fetch('/api/payment_status')
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.isPaid) {
-              dl.style.display = 'flex'
-              dl.style.flexDirection = 'column'
-              dl.style.alignItems = 'center'
-              pw.classList.add('cursor')
-              typeWriter('암호: 0000', 'passwordText', 300)
-            }
-          })
-          .catch(console.error)
+        typeWriter(msg, 'typewriterText', 80, () => {
+          dl.style.display = 'flex'
+          dl.style.flexDirection = 'column'
+          dl.style.alignItems = 'center'
+        })
       })
     </script>
   </body>
